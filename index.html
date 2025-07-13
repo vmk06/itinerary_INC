@@ -17,6 +17,7 @@
             align-items: center;
             min-height: 100vh;
             padding: 1rem;
+            margin: 0; /* Remove default body margin */
         }
         .poster-container {
             background-color: #FFFFFF; /* White */
@@ -28,6 +29,11 @@
             border: 4px solid #00A6FB; /* Vibrant blue border */
             position: relative;
             overflow: hidden;
+
+            /* A4 Ratio for screen display */
+            aspect-ratio: 210 / 297; /* A4 aspect ratio (width / height) */
+            height: auto; /* Allow height to adjust based on aspect ratio */
+            max-height: 95vh; /* Limit max height to fit viewport */
         }
         .gradient-text {
             background: linear-gradient(90deg, #00A6FB, #053F5C); /* Blue to Dark Blue */
@@ -78,6 +84,9 @@
             .poster-container {
                 padding: 1.5rem;
                 border-radius: 1rem;
+                /* Remove fixed aspect ratio for small screens to allow content to flow */
+                aspect-ratio: auto;
+                max-height: none;
             }
             .time-slot {
                 width: 80px;
@@ -98,6 +107,43 @@
             }
             .header-icon {
                 font-size: 3rem;
+            }
+        }
+
+        /* Print-specific styles for A4 */
+        @media print {
+            body {
+                background-color: #FFFFFF; /* White background for print */
+                display: block; /* Revert flex display for print */
+                min-height: auto; /* Remove min-height for print */
+                padding: 0;
+                margin: 0;
+            }
+            .poster-container {
+                box-shadow: none; /* No shadow on print */
+                border-radius: 0; /* No rounded corners on print */
+                border: none; /* No border on print if not desired */
+                width: 210mm; /* A4 width */
+                height: 297mm; /* A4 height */
+                max-width: 210mm;
+                max-height: 297mm;
+                padding: 15mm; /* Maintain some padding on the printed page */
+                margin: 0 auto; /* Center the content on the page */
+                overflow: visible; /* Ensure all content is visible */
+                box-sizing: border-box; /* Include padding in the width/height */
+                aspect-ratio: auto; /* Remove aspect ratio for print */
+            }
+
+            /* Adjust font sizes and spacing for better print readability if needed */
+            h1 { font-size: 3em !important; }
+            h2 { font-size: 1.8em !important; }
+            p { font-size: 0.9em !important; }
+            .section-title { font-size: 1.2em !important; }
+            .time-slot, .event-details p { font-size: 0.85em !important; }
+
+            /* Ensure breaks for multiple pages if content exceeds one A4 page */
+            .grid > div {
+                page-break-inside: avoid;
             }
         }
     </style>
@@ -189,7 +235,6 @@
                     <p>Academic Report Card | A Strategic Blueprint for Dominating JEE Prep in South India.</p>
                     <p>INVICTUS Test Series | A letter to a parent | Faculty Incentive Policy.</p>
                     <p>Summarize discussions and outline future actions.</p>
-                    
                 </div>
             </div>
         </div>
